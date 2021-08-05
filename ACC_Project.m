@@ -16,7 +16,7 @@ s = 0;    % Speed counter
 % cancel - D11
 
 %% Variable Creation
-y = 0;          % checking which is button pressed
+s = 0;          % checking which is button pressed
 CC = 0;  % Cruise Control ON/OFF
 ACC = 0;     % Adaptive Cruise Control ON/OFF
 CCS = 0;        % Cruise Control Speed
@@ -26,16 +26,16 @@ ACCS = 0;       % Adaptive Cruise Control Speed
 while true  % Continuous Loop until program is cancelled
 while true  % Continuous Loop until button is presses and input variable is set
     IB = readDigitalPin(a, 'D9');     % Reading increase Button pin - DIGITAL PIN
-    DB = readDigitalPin(a, 'D8');         % Reading decrese Button pin - ANALOG PIN
-    CCB = readDigitalPin(a, 'D12');    % Reading Cruise Control Button pin - ANALOG PIN
+    DB = readDigitalPin(a, 'D8');         % Reading decrese Button pin - DIGITAL PIN
+    CCB = readDigitalPin(a, 'D12');    % Reading Cruise Control Button pin - DIGITAL PIN
     ACCB = readDigitalPin(a, 'D10');    % Reading Adaptive Cruise Control Button pin - DIGITAL PIN
     CLB = readDigitalPin(a, 'D11');       % Reading Cancel Button pin - DIGITAL PIN
     
     if(IB == 1)            % Increse Button pressed
-        y = 1;
+        s = 1;
         break;
     elseif(DB == 1)         % Decrese Button Pressed
-        y = 2;
+        s = 2;
         break;
     elseif(CCB == 1)    % Cruise Control Button Pressed
         CC = 1;          % Setting cruiseControl
@@ -52,7 +52,7 @@ while true  % Continuous Loop until button is presses and input variable is set
         CCS = 0;                % Set Cruise Control Speed to 0
         break;
     else
-        y = 0;                  % If none of the button will be pressed
+        s = 0;                  % If none of the button will be pressed
         break;
     end
 end
@@ -82,9 +82,9 @@ switch y    % Swtch-Case
             end
             printLCD(lcd, char("Adaptive CC"));                                % Print on LCD
             pause(0.3); 
-            thingSpeakWrite(1459076,[s,distance],'WriteKey','7VDAZ9RZE1WL0W0B');
+            %thingSpeakWrite(1459076,[s,distance],'WriteKey','7VDAZ9RZE1WL0W0B'); %Different For Different Users
         end
 end
 printLCD(lcd, char("Speed: " + s + " km/h"));                 % Print on LCD
-pause(15);                                                         % Pause for 0.5 seconds
+pause(15);                                                         % Pause for 15 seconds, due to Free version of Thing speak we can get data updation after 15 seconds
 end
